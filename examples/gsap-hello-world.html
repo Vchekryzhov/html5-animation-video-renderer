@@ -5,8 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link rel="stylesheet" href="../lib/style.css" />
     <style>
+      :root {
+        background: #0f0;
+      }
+
+      :root.is-transparent {
+        background: transparent;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #scene {
+        background: #000;
+        color: white;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        contain: strict;
+      }
+
+      :root.is-transparent #scene {
+        background: transparent;
+      }
       #scene {
         display: flex;
         align-items: center;
@@ -27,7 +51,7 @@
   <body>
     <!-- The scene element will be rendered to the video file. -->
     <div id="scene">
-      <div id="hello">Hello, world!</div>
+      <div id="hello">Привет Андрей!</div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
 
