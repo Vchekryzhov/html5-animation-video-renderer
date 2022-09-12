@@ -7,11 +7,18 @@ const path = require('path')
 const axios = require('axios')
 const amqp = require('amqplib/callback_api')
 const FormData = require('form-data')
-console.log("RABBIT_HOST", process.env.RABBIT_HOST)
-console.log("WORKERS COUNT ", process.env.WORKERS)
+console.log('RABBIT_HOST', process.env.RABBIT_HOST)
+console.log(
+  'WORKERS COUNT ',
+  process.env.WORKERS || require('os').cpus().length,
+)
 function createRendererFactory(
   url,
-  { scale = 1, alpha = false, launchArgs = [] } = {},
+  {
+    scale = 1,
+    alpha = false,
+    launchArgs = ['--no-sandbox', '--disable-setuid-sandbox'],
+  } = {},
 ) {
   const DATA_URL_PREFIX = 'data:image/png;base64,'
   return function createRenderer({ name = 'Worker' } = {}) {
@@ -274,7 +281,7 @@ tkt
         description:
           'How many headless Chrome processes to use to render in parallel',
         type: 'number',
-        default: process.env.WORKERS,
+        default: process.env.WORKERS || require('os').cpus().length,
       },
       start: {
         description: 'Frame number to start rendering',
@@ -331,7 +338,7 @@ tkt
               let renderOptions = {
                 url: payload.data.html,
                 video: 'video.mp4',
-                parallelism: process.env.WORKERS,
+                parallelism: process.env.WORKERS || require('os').cpus().length,
                 start: 0,
                 end: null,
                 alpha: null,
