@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  html5render:
+    image: registry.chekryzh.synology.me/html5render
+    build: ./
+    environment:
+      - RABBIT_HOST=amqp://animator:1LZiws5J0atx5mSL1RdBzic@rabbit-animator.duckdns.org

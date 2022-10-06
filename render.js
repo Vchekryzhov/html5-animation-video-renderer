@@ -248,7 +248,7 @@ async function runRender(args) {
 async function sendVideo(options) {
   const form_data = new FormData()
   let videoFile = fs.createReadStream(options.videoPath)
-  form_data.append('animation[video]', videoFile, 'video.mp4')
+  form_data.append('video[file]', videoFile, 'video.mp4')
   const request_config = {
     method: 'put',
     url: options.url,
@@ -349,17 +349,18 @@ tkt
               } catch (err) {}
               await runRender(renderOptions)
               await sendVideo({
-                url: payload.data.self,
+                url: payload.data.update_link,
                 videoPath: renderOptions.video,
               })
               console.log(' [x] Done')
               channel.ack(msg)
             } catch (error) {
               console.error(
-                'run video processing error',
+                '[x] Error',
                 msg.content.toString(),
                 error.message,
               )
+              channel.nack(msg)
             }
           },
           {

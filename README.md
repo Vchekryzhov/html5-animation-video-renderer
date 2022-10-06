@@ -1,3 +1,6 @@
+# staging server
+147.182.175.39
+
 # html5-animation-video-renderer
 
 [**Watch the introduction video**](https://www.youtube.com/watch?v=zaSYWktDkAQ)
