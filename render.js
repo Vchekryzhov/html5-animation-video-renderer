@@ -333,7 +333,7 @@ tkt
             console.log(' [x] Received ', msg.content.toString())
             try {
               let payload
-              payload = await axios.get(msg.content.toString())
+              payload = await axios.get(msg.content.toString(), {timeout: 100000})
               console.log(payload.data)
               let renderOptions = {
                 url: payload.data.html,
@@ -360,7 +360,14 @@ tkt
                 msg.content.toString(),
                 error.message,
               )
-              channel.nack(msg)
+              switch(error.code){
+                case 'ERR_BAD_REQUEST':
+                  channel.ack(msg)
+                  break;
+                default:
+                  channel.nack(msg)
+
+              }
             }
           },
           {
